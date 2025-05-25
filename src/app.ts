@@ -126,13 +126,13 @@ export default class ArLocal {
       this.app.context.network.height = 0;
     }
 
-    this.router.get('/logs', logsRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.get('/logs', logsRoute);
     this.router.get('/', statusRoute);
     this.router.get('/info', statusRoute);
     this.router.get('/peers', peersRoute);
-    this.router.get('/reset', resetRoute);
-    this.router.get('/mine/:qty?', mineRoute);
-    this.router.get('/mineWithFails/:qty?', mineWithFailsRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.get('/reset', resetRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.get('/mine/:qty?', mineRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.get('/mineWithFails/:qty?', mineWithFailsRoute);
 
     this.router.get('/tx_anchor', txAnchorRoute);
     this.router.get(
@@ -153,7 +153,7 @@ export default class ArLocal {
     this.router.get('/tx/:txid/:file', txFileRoute);
     this.router.get('/tx/:txid', txRoute);
     this.router.get('/raw/:txid', txRawDataRoute);
-    this.router.delete('/tx/:txid', deleteTxRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.delete('/tx/:txid', deleteTxRoute);
     this.router.post('/tx', txValidateMiddleware, txPostRoute);
 
     this.router.post('/chunk', postChunkRoute);
@@ -162,9 +162,9 @@ export default class ArLocal {
     this.router.get('/block/hash/:indep_hash', blocksRoute);
     this.router.get('/block/height/:height', blocksRouteViaHeight);
 
-    this.router.post('/wallet', createWalletRoute);
-    this.router.patch('/wallet/:address/balance', updateBalanceRoute);
-    this.router.get('/mint/:address/:balance', addBalanceRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.post('/wallet', createWalletRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.patch('/wallet/:address/balance', updateBalanceRoute);
+    if (process.env.DISABLE_ADMIN_ROUTES !== 'true') this.router.get('/mint/:address/:balance', addBalanceRoute);
 
     this.router.get('/wallet/:address/balance', getBalanceRoute);
     this.router.get('/wallet/:address/last_tx', getLastWalletTxRoute);
