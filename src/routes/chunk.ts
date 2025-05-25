@@ -44,7 +44,7 @@ export async function postChunkRoute(ctx: Router.RouterContext) {
         data_path,
       })
       // and clean up the db in case someone re-uploaded a data_root with a different set of chunks
-      chunkDB.deleteOrphanedChunks(data_root)
+      await chunkDB.deleteOrphanedChunks(data_root)
     } else {
       // this is not the last chunk of this tx
       let shouldPersist = false
