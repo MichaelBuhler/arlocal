@@ -137,7 +137,7 @@ export default class ArLocal {
     this.router.get('/tx_anchor', txAnchorRoute);
     this.router.get(
       '/price/:bytes/:addy?',
-      async (ctx) => (ctx.body = Math.round((+ctx.params.bytes / 1000) * 65595508).toString()),
+      async (ctx) => (ctx.body = Math.round(+ctx.params.bytes * +(process.env.WINSTON_PER_BYTE || 65595.508)).toString()),
     );
 
     this.router.get('/tx/pending', txPendingRoute);
